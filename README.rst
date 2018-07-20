@@ -8,7 +8,8 @@ all the time in the world).
 
 Example Usage
 -------------
-... code:: Python3
+
+.. code:: Python3
 
     import gzip
 
