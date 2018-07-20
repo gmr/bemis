@@ -1,3 +1,7 @@
+"""
+Tests for the NBT Decoder
+
+"""
 import gzip
 import json
 import io
