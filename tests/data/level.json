@@ -1,0 +1,161 @@
+{
+  "Data": {
+    "RandomSeed": -6527945446644482699,
+    "generatorName": "default",
+    "BorderCenterZ": 0.0,
+    "Difficulty": 2,
+    "BorderSizeLerpTime": 0,
+    "raining": 0,
+    "DimensionData": {
+      "1": {
+        "DragonFight": {
+          "Gateways": [1, 0, 12, 8, 4, 14, 3, 13, 2, 10, 16, 5, 17, 19, 11, 6, 7, 15, 9, 18],
+          "DragonKilled": 1,
+          "PreviouslyKilled": 1
+        }
+      }
+    },
+    "Time": 695,
+    "GameType": 0,
+    "MapFeatures": 1,
+    "BorderCenterX": 0.0,
+    "BorderDamagePerBlock": 0.2,
+    "BorderWarningBlocks": 5.0,
+    "BorderSizeLerpTarget": 60000000.0,
+    "Version": {
+      "Snapshot": 0,
+      "Id": 1519,
+      "Name": "1.13"
+    },
+    "DayTime": 695,
+    "initialized": 1,
+    "allowCommands": 0,
+    "SizeOnDisk": 0,
+    "CustomBossEvents": {},
+    "GameRules": {
+      "doTileDrops": "true",
+      "doFireTick": "true",
+      "maxCommandChainLength": "65536",
+      "reducedDebugInfo": "false",
+      "naturalRegeneration": "true",
+      "disableElytraMovementCheck": "false",
+      "doMobLoot": "true",
+      "announceAdvancements": "true",
+      "keepInventory": "false",
+      "doEntityDrops": "true",
+      "doLimitedCrafting": "false",
+      "mobGriefing": "true",
+      "randomTickSpeed": "3",
+      "commandBlockOutput": "true",
+      "spawnRadius": "10",
+      "doMobSpawning": "true",
+      "maxEntityCramming": "24",
+      "logAdminCommands": "true",
+      "spectatorsGenerateChunks": "true",
+      "doWeatherCycle": "true",
+      "sendCommandFeedback": "true",
+      "doDaylightCycle": "true",
+      "showDeathMessages": "true"
+    },
+    "Player": {
+      "HurtByTimestamp": 0,
+      "SleepTimer": 0,
+      "Attributes": [{
+        "Base": 20.0,
+        "Name": "generic.maxHealth"
+      }, {
+        "Base": 0.0,
+        "Name": "generic.knockbackResistance"
+      }, {
+        "Base": 0.10000000149011612,
+        "Name": "generic.movementSpeed"
+      }, {
+        "Base": 0.0,
+        "Name": "generic.armor"
+      }, {
+        "Base": 0.0,
+        "Name": "generic.armorToughness"
+      }, {
+        "Base": 1.0,
+        "Name": "generic.attackDamage"
+      }, {
+        "Base": 4.0,
+        "Name": "generic.attackSpeed"
+      }, {
+        "Base": 0.0,
+        "Name": "generic.luck"
+      }],
+      "Invulnerable": 0,
+      "FallFlying": 0,
+      "PortalCooldown": 0,
+      "AbsorptionAmount": 0.0,
+      "abilities": {
+        "invulnerable": 0,
+        "mayfly": 0,
+        "instabuild": 0,
+        "walkSpeed": 0.10000000149011612,
+        "mayBuild": 1,
+        "flying": 0,
+        "flySpeed": 0.05000000074505806
+      },
+      "FallDistance": 0.0,
+      "recipeBook": {
+        "recipes": ["minecraft:oak_boat", "minecraft:acacia_boat", "minecraft:spruce_boat", "minecraft:birch_boat", "minecraft:jungle_boat", "minecraft:dark_oak_boat"],
+        "isFilteringCraftable": 0,
+        "toBeDisplayed": ["minecraft:oak_boat", "minecraft:acacia_boat", "minecraft:spruce_boat", "minecraft:birch_boat", "minecraft:jungle_boat", "minecraft:dark_oak_boat"],
+        "isFurnaceGuiOpen": 0,
+        "isGuiOpen": 0,
+        "isFurnaceFilteringCraftable": 0
+      },
+      "DeathTime": 0,
+      "XpSeed": 0,
+      "XpTotal": 0,
+      "playerGameType": 0,
+      "seenCredits": 0,
+      "Motion": [0.0, -0.025161429690498612, 0.0],
+      "UUIDLeast": -5494330629633731800,
+      "Health": 14.333334922790527,
+      "foodSaturationLevel": 0.0,
+      "Air": 290,
+      "OnGround": 0,
+      "Dimension": 0,
+      "Rotation": [-57.75465393066406, 2.850036382675171],
+      "XpLevel": 0,
+      "Score": 0,
+      "UUIDMost": -7438284707948051536,
+      "Sleeping": 0,
+      "Pos": [-239.06787453252767, 61.159126669137656, 252.54679029500397],
+      "Fire": -20,
+      "XpP": 0.0,
+      "EnderItems": [],
+      "DataVersion": 1519,
+      "foodLevel": 19,
+      "foodExhaustionLevel": 2.6705946922302246,
+      "HurtTime": 0,
+      "SelectedItemSlot": 0,
+      "Inventory": [],
+      "foodTickTimer": 60
+    },
+    "SpawnY": 66,
+    "rainTime": 28169,
+    "thunderTime": 30771,
+    "SpawnZ": 260,
+    "hardcore": 0,
+    "DifficultyLocked": 0,
+    "SpawnX": -221,
+    "clearWeatherTime": 0,
+    "thundering": 0,
+    "generatorVersion": 1,
+    "version": 19133,
+    "BorderSafeZone": 5.0,
+    "LastPlayed": 1532046616698,
+    "BorderWarningTime": 15.0,
+    "LevelName": "New World",
+    "BorderSize": 60000000.0,
+    "DataVersion": 1519,
+    "DataPacks": {
+      "Enabled": ["vanilla"],
+      "Disabled": []
+    }
+  }
+}

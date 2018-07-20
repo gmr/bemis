@@ -1,0 +1,20 @@
+sudo: false
+language: python
+
+stages:
+- test
+
+install:
+- python setup.py develop
+- pip install -r test-requirements.txt
+
+script: nosetests
+
+jobs:
+  include:
+  - python: "3.4"
+  - python: "3.5"
+  - python: "3.6"
+  - python: "3.7-dev"
+  - python: pypy
+  - python: pypy3
