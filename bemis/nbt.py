@@ -3,159 +3,202 @@ NBT Reader
 ==========
 
 """
+import io
 import struct
 
 
-class Decoder:
-    """Decode a NBT structure from the file object"""
+def load(fp):
+    """Load a NBT data structure from a file object, returning a tuple
+    of name, and a dict containing the NBT content.
 
-    def __init__(self):
-        """Initialize the decoding map"""
-        self._fp = None
-        self._map = {
-            0: self._decode_end,
-            1: self._decode_byte,
-            2: self._decode_short,
-            3: self._decode_int,
-            4: self._decode_long,
-            5: self._decode_float,
-            6: self._decode_double,
-            7: self._decode_byte_array,
-            8: self._decode_string,
-            9: self._decode_list,
-            10: self._decode_compound,
-            11: self._decode_int_array,
-            12: self._decode_long_array,
-        }
+    :param fp: A binary file object to load the NBT data from
+    :type fp: A binary `file object`
+    :raises: ValueError
 
-    def load(self, fp):
-        """Load a NBT data structure from the file object, returning a tuple
-        of name, and a dict containing the NBT content.
+    """
+    tag_type = ord(fp.read(1))
+    if tag_type != 10:
+        raise ValueError('Invalid NBT file format: expected compound tag,'
+                         ' not {}'.format(tag_type))
+    return _decode_string(fp), _decode_compound(fp)
 
-        :param fp: A binary file object to load the NBT data from
-        :type fp: A binary `file object`
-        :raises: ValueError
 
-        """
-        self._fp = fp
-        tag_type = ord(self._fp.read(1))
-        if tag_type != 10:
-            raise ValueError('Invalid NBT file format: expected compound tag,'
-                             ' not {}'.format(tag_type))
-        return self._decode_string(), self._decode_compound()
+def unpackb(value):
+    """Load a NBT data structure from bytes, returning a tuple
+    of name, and a dict containing the NBT content.
 
-    def _decode_end(self):
-        """Decode the end tag, which has no data in the file, returning 0.
+    :param bytes value: The NBT data value to decode
+    :raises: ValueError
 
-        :rtype: int
+    """
+    return load(io.BytesIO(value))
 
-        """
-        return 0
 
-    def _decode_byte(self):
-        """Decode a byte tag
+def loads(value):
+    """Load a NBT data structure from bytes, returning a tuple
+    of name, and a dict containing the NBT content.
 
-        :rtype: byte
+    Compatibility alias for use like `json` and `pickle`.
 
-        """
-        return struct.unpack('b', self._fp.read(1))[0]
+    :param bytes value: The NBT data value to decode
+    :raises: ValueError
 
-    def _decode_short(self):
-        """Decode a short integer tag
+    """
+    return unpackb(value)
 
-        :rtype: int
 
-        """
-        return struct.unpack('>h', self._fp.read(2))[0]
+def _decode_end(_fp):
+    """Decode the end tag, which has no data in the file, returning 0.
 
-    def _decode_int(self):
-        """Decode an int tag
+    :type _fp: A binary `file object`
+    :rtype: int
 
-        :rtype: int
+    """
+    return 0
 
-        """
-        return struct.unpack('>i', self._fp.read(4))[0]
 
-    def _decode_long(self):
-        """Decode a long integer tag
+def _decode_byte(fp):
+    """Decode a byte tag
 
-        :rtype: int
+    :type fp: A binary `file object`
+    :rtype: byte
 
-        """
-        return struct.unpack('>q', self._fp.read(8))[0]
+    """
+    return struct.unpack('b', fp.read(1))[0]
 
-    def _decode_float(self):
-        """Decode a float tag
 
-        :rtype: float
+def _decode_short(fp):
+    """Decode a short integer tag
 
-        """
-        return struct.unpack('>f', self._fp.read(4))[0]
+    :type fp: A binary `file object`
+    :rtype: int
 
-    def _decode_double(self):
-        """Decode a double tag
+    """
+    return struct.unpack('>h', fp.read(2))[0]
 
-        :rtype: float
 
-        """
-        return struct.unpack('>d', self._fp.read(8))[0]
+def _decode_int(fp):
+    """Decode an int tag
 
-    def _decode_byte_array(self):
-        """Decode a byte array tag
+    :type fp: A binary `file object`
+    :rtype: int
 
-        :rtype: bytes
+    """
+    return struct.unpack('>i', fp.read(4))[0]
 
-        """
-        return self._fp.read(self._decode_int())
 
-    def _decode_string(self):
-        """Decode a string tag
+def _decode_long(fp):
+    """Decode a long integer tag
 
-        :rtype: str or None
+    :type fp: A binary `file object`
+    :rtype: int
 
-        """
-        return self._fp.read(self._decode_short()).decode('utf-8') or None
+    """
+    return struct.unpack('>q', fp.read(8))[0]
 
-    def _decode_list(self):
-        """Decode a list tag
 
-        :rtype: list
+def _decode_float(fp):
+    """Decode a float tag
 
-        """
-        tag_id = self._decode_byte()
-        length = self._decode_int()
-        return [self._map[tag_id]() for _ in range(length)]
+    :type fp: A binary `file object`
+    :rtype: float
 
-    def _decode_compound(self):
-        """Decode a compound tag
+    """
+    return struct.unpack('>f', fp.read(4))[0]
 
-        :rtype: dict
 
-        """
-        values = {}
-        tag_type = ord(self._fp.read(1))
-        while tag_type > 0:
-            name = self._decode_string()
-            values[name] = self._map[tag_type]()
-            tag_type = ord(self._fp.read(1))
-        return values
+def _decode_double(fp):
+    """Decode a double tag
 
-    def _decode_int_array(self):
-        """Decode an integer array tag
+    :type fp: A binary `file object`
+    :rtype: float
 
-        :rtype: list[int]
+    """
+    return struct.unpack('>d', fp.read(8))[0]
 
-        """
-        length = self._decode_int()
-        return list(
-            struct.unpack('>{}i'.format(length), self._fp.read(length * 4)))
 
-    def _decode_long_array(self):
-        """Decode an long array tag
+def _decode_byte_array(fp):
+    """Decode a byte array tag
 
-        :rtype: list[int]
+    :type fp: A binary `file object`
+    :rtype: bytes
 
-        """
-        length = self._decode_int()
-        return list(
-            struct.unpack('>{}q'.format(length), self._fp.read(length * 8)))
+    """
+    return fp.read(_decode_int(fp))
+
+
+def _decode_string(fp):
+    """Decode a string tag
+
+    :type fp: A binary `file object`
+    :rtype: str or None
+
+    """
+    return fp.read(_decode_short(fp)).decode('utf-8') or None
+
+
+def _decode_list(fp):
+    """Decode a list tag
+
+    :type fp: A binary `file object`
+    :rtype: list
+
+    """
+    tag_id = _decode_byte(fp)
+    size = _decode_int(fp)
+    return [_MAP[tag_id](fp) for _ in range(size)]
+
+
+def _decode_compound(fp):
+    """Decode a compound tag
+
+    :type fp: A binary `file object`
+    :rtype: dict
+
+    """
+    values = {}
+    tag_type = ord(fp.read(1))
+    while tag_type > 0:
+        name = _decode_string(fp)
+        values[name] = _MAP[tag_type](fp)
+        tag_type = ord(fp.read(1))
+    return values
+
+
+def _decode_int_array(fp):
+    """Decode an integer array tag
+
+    :type fp: A binary `file object`
+    :rtype: list[int]
+
+    """
+    size = _decode_int(fp)
+    return list(struct.unpack('>{}i'.format(size), fp.read(size * 4)))
+
+
+def _decode_long_array(fp):
+    """Decode an long array tag
+
+    :type fp: A binary `file object`
+    :rtype: list[int]
+
+    """
+    size = _decode_int(fp)
+    return list(struct.unpack('>{}q'.format(size), fp.read(size * 8)))
+
+
+_MAP = {
+    0: _decode_end,
+    1: _decode_byte,
+    2: _decode_short,
+    3: _decode_int,
+    4: _decode_long,
+    5: _decode_float,
+    6: _decode_double,
+    7: _decode_byte_array,
+    8: _decode_string,
+    9: _decode_list,
+    10: _decode_compound,
+    11: _decode_int_array,
+    12: _decode_long_array
+}

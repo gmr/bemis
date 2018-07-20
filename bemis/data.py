@@ -87,7 +87,7 @@ Biomes = {
                'Modified Badlands Plateau')
 }
 
-Version = collection.namedtuple('Version', 'protocol', 'data', 'release')
+Version = collections.namedtuple('Version', 'protocol', 'data', 'release')
 Versions = [
     Version('393', '1519', '1.13'),
     Version('340', '1343', '1.12.2'),

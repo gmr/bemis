@@ -15,6 +15,5 @@ Example Usage
 
     from bemis import nbt
 
-    decoder = nbt.Decoder()
     with gzip.open('player.dat', 'rb') as handle:
-        name, data = decoder.load(handle)
+        name, data = nbt.load(handle)
