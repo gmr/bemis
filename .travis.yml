@@ -1,14 +1,10 @@
 sudo: false
 language: python
-
-stages:
-- test
-
 install:
-- python setup.py develop
-- pip install -r test-requirements.txt
+  - pip install -r test-requirements.txt
 
-script: nosetests
+script:
+  - nosetests
 
 jobs:
   include:
