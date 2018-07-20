@@ -1,6 +1,6 @@
 import setuptools
 
-from flatdict import __version__
+from bemis import __version__
 
 setuptools.setup(
     name='bemis',
